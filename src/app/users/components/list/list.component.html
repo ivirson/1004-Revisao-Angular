@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row mt-3">
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Adicionar Usuário
+    </button>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-3" *ngFor="let user of users">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ user.name }}</h5>
+          <p class="card-text">{{ user.password }}</p>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+          <button
+            type="button"
+            class="btn btn-outline-danger me-2"
+            (click)="deleteUser(user.id!)"
+          >
+            Excluir
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Editar
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Editar -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+        id="exampleModal"
+      >
+        <app-create
+          (saveUserEmitter)="handleSaveUser($event)"
+          (editUserEmitter)="handleEditUser($event)"
+          [user]="user"
+        ></app-create>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Criar -->
+<div
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  id="exampleModal"
+>
+  <app-create (saveUserEmitter)="handleSaveUser($event)"></app-create>
+</div>
